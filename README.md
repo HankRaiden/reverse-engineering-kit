@@ -65,8 +65,8 @@ Step by step: [quickstart](docs/en/quickstart.md).
 
 ## Where this comes from
 The method grew out of a real project: a crypto bot built from public trading knowledge, run by two AI agents and one
-human with a veto, trading its own capital on Bybit from February to July 2026. What it learned — including what did
-**not** work — is in [lessons from live trading](docs/en/lessons-from-live.md). **The bot itself is not published**
+human with a veto, trading its own capital on Bybit from February to July 2026. The full story, with successes and failures, is in [project history](docs/en/project-history.md); what it learned —
+including what did **not** work — is in [lessons from live trading](docs/en/lessons-from-live.md). **The bot itself is not published**
 ([why](SAFETY.md)).
 
 ## Works beyond crypto

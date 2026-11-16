@@ -32,3 +32,15 @@ def test_report_has_no_currency(tmp_path):
 def test_report_german_labels(tmp_path):
     text = write_report(RESULTS, tmp_path, lang="de").read_text()
     assert "Urteil" in text and "Trefferquote" in text and "Erwartungswert" in text
+
+
+def test_report_names_the_tested_metric_per_row(tmp_path):
+    res = json.loads(json.dumps(RESULTS))
+    diff = json.loads(json.dumps(RESULTS["hypotheses"][0]))
+    diff.update(id="H2", metric="expectancy_diff_r")
+    res["hypotheses"].append(diff)
+    text = write_report(res, tmp_path, lang="en").read_text()
+    row = next(line for line in text.splitlines() if line.startswith("| H2 "))
+    assert "difference vs. baseline" in row
+    text_de = write_report(res, tmp_path, lang="de").read_text()
+    assert "Differenz zur Vergleichsregel" in next(x for x in text_de.splitlines() if x.startswith("| H2 "))

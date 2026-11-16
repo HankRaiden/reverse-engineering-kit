@@ -68,8 +68,8 @@ Schritt für Schritt: [Schnellstart](docs/de/quickstart.md).
 ## Woher das kommt
 Die Methode stammt aus einem echten Projekt. Ein Krypto-Bot wurde aus öffentlichem Trading-Wissen gebaut, von zwei
 KI-Agenten geführt und von einem Menschen mit Vetorecht kontrolliert. Er handelte von Februar bis Juli 2026 mit
-Eigenkapital auf Bybit. Was er gelernt hat, auch was **nicht** funktionierte, steht in
-[Lehren aus dem Live-Betrieb](docs/de/lessons-from-live.md). **Der Bot selbst wird nicht veröffentlicht**
+Eigenkapital auf Bybit. Die ganze Geschichte mit Erfolgen und Misserfolgen steht in der [Projektgeschichte](docs/de/project-history.md),
+was er gelernt hat, auch was **nicht** funktionierte, in [Lehren aus dem Live-Betrieb](docs/de/lessons-from-live.md). **Der Bot selbst wird nicht veröffentlicht**
 ([warum](SAFETY.md)).
 
 ## Nicht nur Krypto

@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "spec": "05-hypotheses.toml",
+    "n_trials": 4,
+    "rekit": "0.1.0",
+    "created": "2026-11-16"
+  },
+  "hypotheses": [
+    {
+      "id": "H1",
+      "statement": "A breakout confirmed by volume has a positive expectancy per trade",
+      "symbols": [
+        "BTC/USDT:USDT",
+        "ETH/USDT:USDT",
+        "SOL/USDT:USDT",
+        "XRP/USDT:USDT",
+        "DOGE/USDT:USDT"
+      ],
+      "timeframe": "4h",
+      "period": "2022-01-01 .. 2026-11-01",
+      "out_of_sample": false,
+      "metric": "expectancy_r",
+      "summary": {
+        "n_trades": 2011,
+        "hit_rate": 0.3684733963202387,
+        "profit_factor": 1.0886292468236978,
+        "expectancy_r": 0.05859875084912848,
+        "total_return_pct": 163.34655833645803,
+        "max_drawdown_pct": -60.78576171754027,
+        "sharpe_annual": 0.6395958437698023
+      },
+      "verdict": {
+        "verdict": "REJECT",
+        "reason": "expectancy +0.059 R, 95% CI [-0.010, +0.121], deflated-Sharpe probability 0.78 over 4 tried variants",
+        "ci": [
+          -0.01037349242846586,
+          0.05859875084912848,
+          0.12086915618573475
+        ],
+        "dsr_prob": 0.779143826088917,
+        "p_value": 0.034906867789793905,
+        "n": 2011,
+        "p_holm": 0.13962747115917562
+      },
+      "concentration": {
+        "top_share_pct": 5.075724187474597,
+        "net_r": 117.84208795759737,
+        "net_ex_top_r": 111.8607485961088,
+        "expectancy_ex_top_r": 0.05570754412156813
+      },
+      "concentration_by_symbol": {
+        "top_share_pct": 58.66738912919336,
+        "net_r": 117.84208795759737,
+        "net_ex_top_r": 48.7072116575474,
+        "expectancy_ex_top_r": 0.029881724943280612
+      }
+    },
+    {
+      "id": "H2",
+      "statement": "Requiring volume improves the breakout compared with the same breakout without volume",
+      "symbols": [
+        "BTC/USDT:USDT",
+        "ETH/USDT:USDT",
+        "SOL/USDT:USDT",
+        "XRP/USDT:USDT",
+        "DOGE/USDT:USDT"
+      ],
+      "timeframe": "4h",
+      "period": "2022-01-01 .. 2026-11-01",
+      "out_of_sample": false,
+      "metric": "expectancy_diff_r",
+      "summary": {
+        "n_trades": 2011,
+        "hit_rate": 0.3684733963202387,
+        "profit_factor": 1.0886292468236978,
+        "expectancy_r": 0.05859875084912848,
+        "total_return_pct": 163.34655833645803,
+        "max_drawdown_pct": -60.78576171754027,
+        "sharpe_annual": 0.6395958437698023
+      },
+      "verdict": {
+        "verdict": "REJECT",
+        "reason": "difference +0.008 R, 95% CI [-0.088, +0.097] does not clear +0.00",
+        "ci": [
+          -0.0879344767588104,
+          0.007506615648638748,
+          0.09697674136919046
+        ],
+        "dsr_prob": NaN,
+        "p_value": 0.4319589967824152,
+        "n": 2011,
+        "p_holm": 0.8639179935648305
+      },
+      "concentration": {
+        "top_share_pct": 5.075724187474597,
+        "net_r": 117.84208795759737,
+        "net_ex_top_r": 111.8607485961088,
+        "expectancy_ex_top_r": 0.05570754412156813
+      },
+      "concentration_by_symbol": {
+        "top_share_pct": 58.66738912919336,
+        "net_r": 117.84208795759737,
+        "net_ex_top_r": 48.7072116575474,
+        "expectancy_ex_top_r": 0.029881724943280612
+      }
+    },
+    {
+      "id": "H3",
+      "statement": "A swing failure (sweep of the last swing point and close back inside) has a positive expectancy",
+      "symbols": [
+        "BTC/USDT:USDT",
+        "ETH/USDT:USDT",
+        "SOL/USDT:USDT",
+        "XRP/USDT:USDT",
+        "DOGE/USDT:USDT"
+      ],
+      "timeframe": "4h",
+      "period": "2022-01-01 .. 2026-11-01",
+      "out_of_sample": false,
+      "metric": "expectancy_r",
+      "summary": {
+        "n_trades": 1924,
+        "hit_rate": 0.32588357588357586,
+        "profit_factor": 0.9038731821973512,
+        "expectancy_r": -0.06780713212750378,
+        "total_return_pct": -77.56984416798139,
+        "max_drawdown_pct": -82.71526090541566,
+        "sharpe_annual": -0.7933436853486155
+      },
+      "verdict": {
+        "verdict": "REJECT",
+        "reason": "expectancy -0.068 R, 95% CI [-0.129, -0.006], deflated-Sharpe probability 0.00 over 4 tried variants",
+        "ci": [
+          -0.1294116109833654,
+          -0.06780713212750378,
+          -0.005865797229189178
+        ],
+        "dsr_prob": 0.000944097402836741,
+        "p_value": 0.9826391748951111,
+        "n": 1924,
+        "p_holm": 0.9826391748951111
+      },
+      "concentration": {
+        "top_share_pct": -4.582442652551922,
+        "net_r": -130.46092221331728,
+        "net_ex_top_r": -136.43921915773308,
+        "expectancy_ex_top_r": -0.07102510107117807
+      },
+      "concentration_by_symbol": {
+        "top_share_pct": -18.970908683785098,
+        "net_r": -130.46092221331728,
+        "net_ex_top_r": -155.2105446344296,
+        "expectancy_ex_top_r": -0.10052496414146994
+      }
+    },
+    {
+      "id": "H4",
+      "statement": "Trading the volume breakout only with the 200-EMA trend improves it",
+      "symbols": [
+        "BTC/USDT:USDT",
+        "ETH/USDT:USDT",
+        "SOL/USDT:USDT",
+        "XRP/USDT:USDT",
+        "DOGE/USDT:USDT"
+      ],
+      "timeframe": "4h",
+      "period": "2022-01-01 .. 2026-11-01",
+      "out_of_sample": false,
+      "metric": "expectancy_diff_r",
+      "summary": {
+        "n_trades": 1651,
+        "hit_rate": 0.37855844942459116,
+        "profit_factor": 1.1375469429137561,
+        "expectancy_r": 0.08939253949959328,
+        "total_return_pct": 267.3886119690336,
+        "max_drawdown_pct": -50.62941428649723,
+        "sharpe_annual": 0.8461385577076667
+      },
+      "verdict": {
+        "verdict": "REJECT",
+        "reason": "difference +0.031 R, 95% CI [-0.070, +0.126] does not clear +0.00",
+        "ci": [
+          -0.07021771488953546,
+          0.030793788650464782,
+          0.1255005017644642
+        ],
+        "dsr_prob": NaN,
+        "p_value": 0.2617585406914783,
+        "n": 1651,
+        "p_holm": 0.7852756220744349
+      },
+      "concentration": {
+        "top_share_pct": 4.052752620015319,
+        "net_r": 147.58708271382847,
+        "net_ex_top_r": 141.60574335233946,
+        "expectancy_ex_top_r": 0.08592581514098269
+      },
+      "concentration_by_symbol": {
+        "top_share_pct": 34.033592823058974,
+        "net_r": 147.58708271382847,
+        "net_ex_top_r": 97.35789592357284,
+        "expectancy_ex_top_r": 0.07471826241256549
+      }
+    }
+  ]
+}

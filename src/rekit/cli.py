@@ -79,6 +79,7 @@ def cmd_backtest(args) -> int:
                     baseline_r=None if base is None else base["r_multiple"].to_numpy())
         out.append({"id": h.id, "statement": h.statement, "symbols": h.symbols, "timeframe": h.timeframe,
                     "period": f"{h.start} .. {h.end}", "out_of_sample": bool(h.grid),
+                    "metric": h.criteria.metric,
                     "summary": summarize(res), "verdict": v,
                     "concentration": concentration(trades, 3) if len(trades) else {},
                     "concentration_by_symbol": concentration(trades, 1, by="symbol") if len(trades) else {}})

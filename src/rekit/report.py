@@ -10,14 +10,17 @@ LABELS = {
            "trades": "Trades", "hit": "Hit rate", "pf": "Profit factor", "exp": "Expectancy (R)",
            "ret": "Total return (%)", "dd": "Max drawdown (%)", "sharpe": "Sharpe (annual)",
            "ci": "95% confidence interval (R)", "dsr": "Deflated-Sharpe probability", "holm": "p (Holm-adjusted)",
-           "conc": "Concentration", "top": "Share of net result from top 3 trades (%)",
+           "conc": "Concentration", "metric": "Tested metric",
+           "m_abs": "expectancy", "m_diff": "difference vs. baseline",
+           "top": "Share of net result from top 3 trades (%)",
            "ex": "Net result without top 3 trades (R)", "note":
            "Verdicts follow criteria registered before the test. HOLD means: not enough trades to decide."},
     "de": {"title": "Backtest-Bericht", "hyp": "Hypothese", "verdict": "Urteil", "reason": "Begründung",
            "trades": "Trades", "hit": "Trefferquote", "pf": "Profit-Faktor", "exp": "Erwartungswert (R)",
            "ret": "Gesamtrendite (%)", "dd": "Max. Zwischenverlust (%)", "sharpe": "Sharpe (annualisiert)",
            "ci": "95-%-Konfidenzintervall (R)", "dsr": "Deflated-Sharpe-Wahrscheinlichkeit",
-           "holm": "p (Holm-korrigiert)", "conc": "Konzentration",
+           "holm": "p (Holm-korrigiert)", "conc": "Konzentration", "metric": "Geprüfte Messgröße",
+           "m_abs": "Erwartungswert", "m_diff": "Differenz zur Vergleichsregel",
            "top": "Anteil der besten 3 Trades am Netto-Ergebnis (%)",
            "ex": "Netto-Ergebnis ohne die besten 3 Trades (R)", "note":
            "Die Urteile folgen Kriterien, die vor dem Test festgelegt wurden. HOLD heißt: zu wenige Trades für eine "
@@ -40,15 +43,17 @@ def write_report(results: dict, out_dir: Path, lang: str = "en") -> Path:
     lines = [f"# {L['title']}", "", f"_{L['note']}_", ""]
     if meta:
         lines += [" · ".join(f"{k}: {v}" for k, v in meta.items()), ""]
-    lines += [f"| {L['hyp']} | {L['verdict']} | {L['trades']} | {L['hit']} | {L['pf']} | {L['exp']} | {L['ci']} | "
-              f"{L['dd']} | {L['holm']} |", "|---|---|---|---|---|---|---|---|---|"]
+    lines += [f"| {L['hyp']} | {L['verdict']} | {L['metric']} | {L['ci']} | {L['trades']} | {L['hit']} | {L['pf']} | "
+              f"{L['exp']} | {L['dd']} | {L['holm']} |", "|---|---|---|---|---|---|---|---|---|---|"]
     for h in results["hypotheses"]:
         s, v = h["summary"], h["verdict"]
         ci = v.get("ci", [None] * 3)
+        metric = L["m_diff"] if h.get("metric") == "expectancy_diff_r" else L["m_abs"]
+        hit = s["hit_rate"] * 100 if s["hit_rate"] == s["hit_rate"] else None
         lines.append(
-            f"| {h['id']} | **{v['verdict']}** | {s['n_trades']} | {_f(s['hit_rate'] * 100 if s['hit_rate'] == s['hit_rate'] else None, '{:.0f} %')} | "  # noqa: E501
-            f"{_f(s['profit_factor'])} | {_f(s['expectancy_r'], '{:+.3f}')} | "
-            f"[{_f(ci[0], '{:+.3f}')}, {_f(ci[2], '{:+.3f}')}] | {_f(s['max_drawdown_pct'], '{:.1f}')} | "
+            f"| {h['id']} | **{v['verdict']}** | {metric} {_f(ci[1], '{:+.3f}')} | "
+            f"[{_f(ci[0], '{:+.3f}')}, {_f(ci[2], '{:+.3f}')}] | {s['n_trades']} | {_f(hit, '{:.0f} %')} | "
+            f"{_f(s['profit_factor'])} | {_f(s['expectancy_r'], '{:+.3f}')} | {_f(s['max_drawdown_pct'], '{:.1f}')} | "
             f"{_f(v.get('p_holm'), '{:.3f}')} |")
     for h in results["hypotheses"]:
         s, v, c = h["summary"], h["verdict"], h.get("concentration", {})

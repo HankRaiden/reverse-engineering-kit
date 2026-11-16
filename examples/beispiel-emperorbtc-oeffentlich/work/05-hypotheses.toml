@@ -1,0 +1,58 @@
+# Stage 5 · worked example · pre-registered and locked (see 05-hypotheses.toml.lock)
+# min_trades = 270: detect an expectancy of +0.2 R with sd 1.3 R, one-sided alpha 0.05, power 0.8
+#   rekit.stats.min_trades(0.2, 1.3) -> 262, rounded up
+
+[meta]
+source = "EmperorBTC, public tutorials (see 01-source.md)"
+created = "2026-11-16"
+
+[defaults]
+exchange = "bybit"
+timeframe = "4h"
+start = "2022-01-01"
+end = "2026-11-01"
+symbols = ["BTC/USDT:USDT", "ETH/USDT:USDT", "SOL/USDT:USDT", "XRP/USDT:USDT", "DOGE/USDT:USDT"]
+
+[[hypothesis]]
+id = "H1"
+statement = "A breakout confirmed by volume has a positive expectancy per trade"
+rule = "rules.py:volume_breakout"
+params = { lookback = 20, vol_mult = 1.5 }
+[hypothesis.criteria]
+metric = "expectancy_r"
+threshold = 0.0
+min_trades = 270
+
+[[hypothesis]]
+id = "H2"
+statement = "Requiring volume improves the breakout compared with the same breakout without volume"
+rule = "rules.py:volume_breakout"
+params = { lookback = 20, vol_mult = 1.5 }
+baseline_rule = "rules.py:breakout_no_volume"
+baseline_params = { lookback = 20 }
+[hypothesis.criteria]
+metric = "expectancy_diff_r"
+threshold = 0.0
+min_trades = 270
+
+[[hypothesis]]
+id = "H3"
+statement = "A swing failure (sweep of the last swing point and close back inside) has a positive expectancy"
+rule = "rules.py:swing_failure"
+params = { left = 3, right = 3 }
+[hypothesis.criteria]
+metric = "expectancy_r"
+threshold = 0.0
+min_trades = 270
+
+[[hypothesis]]
+id = "H4"
+statement = "Trading the volume breakout only with the 200-EMA trend improves it"
+rule = "rules.py:volume_breakout_trend"
+params = { lookback = 20, vol_mult = 1.5, ema_n = 200 }
+baseline_rule = "rules.py:volume_breakout"
+baseline_params = { lookback = 20, vol_mult = 1.5 }
+[hypothesis.criteria]
+metric = "expectancy_diff_r"
+threshold = 0.0
+min_trades = 270

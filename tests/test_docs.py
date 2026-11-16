@@ -37,7 +37,7 @@ def test_expected_templates_and_docs_exist():
                  "hypotheses.toml", "assignment.md", "review.md", "approval-log.schema.json",
                  "refutation-register.md", "paper-plan.md", "post-mortem.md", "weekly-review.md"]
     docs = ["quickstart.md", "methodology.md", "organisation.md", "anti-patterns.md", "lessons-from-live.md",
-            "transferability.md", "after-paper-trading.md", "glossary.md"]
+            "transferability.md", "after-paper-trading.md", "glossary.md", "project-history.md"]
     for lang in ("en", "de"):
         for t in templates:
             assert (ROOT / "templates" / lang / t).is_file(), f"templates/{lang}/{t}"
