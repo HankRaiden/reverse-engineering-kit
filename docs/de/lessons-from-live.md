@@ -18,6 +18,10 @@ auf Bybit mit bewusst kleinem **Eigenkapital**.
 | Größter Zwischenverlust (zeitgewichtet) | −21,4 % | 20.02.–29.07.2026 |
 | Lernphase: Profit-Faktor der ersten rund 170 Trades | 1,00 (exakt break-even) | Feb–Mär 2026 |
 
+**Empfindlichkeit:** Am 30.03. wurde das intern gebuchte Kapital erstmals an das Börsen-Wallet angeglichen. Bucht man
+drei kleine Einzahlungen erst dort, ergeben sich +34,4 % statt +35,0 % und ein größter Zwischenverlust von −18,4 % statt
+−21,4 %. Alle Renditen wurden von einem zweiten Prüfer mit eigenem Code nachgerechnet.
+
 **Warum zwei so verschiedene Renditen?** Der Gewinn entstand überwiegend im April auf kleiner Kapitalbasis. Danach
 kam mehr Kapital hinzu, und die Strategie lief etwa auf null. Zeitgewichtet misst die Strategie, geldgewichtet
 misst das Konto. Beides ist wahr. Wer nur eine Zahl zeigt, verschweigt die andere.

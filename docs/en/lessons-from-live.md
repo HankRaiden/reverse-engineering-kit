@@ -18,6 +18,10 @@ small **own capital**.
 | Largest drawdown (time-weighted) | −21.4% | 20 Feb – 29 Jul 2026 |
 | Learning phase: profit factor of the first ~170 trades | 1.00 (exactly break-even) | Feb–Mar 2026 |
 
+**Sensitivity:** on 30 March the internally booked capital was aligned with the exchange wallet for the first time. If
+three small deposits are booked there instead, the result is +34.4% instead of +35.0% and a largest drawdown of −18.4%
+instead of −21.4%. All returns were recalculated by a second auditor with independent code.
+
 **Why two such different returns?** The profit was made mostly in April on a small capital base. More capital came
 in afterwards, and the strategy ran at roughly zero. Time-weighted measures the strategy, money-weighted measures the
 account. Both are true. Showing only one hides the other.
