@@ -1,6 +1,6 @@
 ---
 name: backtest
-description: Stage 6 — run the pre-registered tests with rekit and report the verdicts exactly as they come out. Use after gate 2 and rekit lock.
+description: Stage 6 — run the pre-registered tests with `rekit` and report the verdicts exactly as they come out. Use after gate 2 and rekit lock.
 ---
 Role: **CTO**. Class: ANALYSIS.
 
