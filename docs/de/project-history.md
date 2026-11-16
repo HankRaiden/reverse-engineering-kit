@@ -27,11 +27,11 @@ angegeben. Der Bot selbst wird nicht veröffentlicht ([warum](../../SAFETY.md)).
 ## Bilanz
 | Erfolge | Misserfolge |
 |---------|-------------|
-| Live-Track-Record mit echtem Geld statt Backtest-Poesie | Lernphase exakt break-even (Profit-Faktor 1,00) |
+| Live-Track-Record mit echtem Geld statt Backtest-Poesie | Lernphase praktisch ausgeglichen (Profit-Faktor 1,00) |
 | +35,0 % zeitgewichtet über die Live-Phase bei Bitcoin −4,8 %, Zwischenstand unabhängig nachgerechnet | Der Gewinn hing an wenigen kleinen Coins und einem Einzelwert. Ohne sie: April–Mai +3,7 %, Juni–Juli −8,5 % |
 | In einer forensischen Prüfung über 62 Tage war keine von 228 Positionen je ohne Stop-Loss eröffnet worden | Davor gab es mehrere Vorfälle mit ungeschützten Positionen |
 | Neun verlockende Ideen sauber widerlegt, bevor sie Geld kosteten | Eine Idee sah im naiven Backtest nach +47 % aus und war real −32,7 % |
-| Gewaltenteilung CIO / CTO / Chairman hat Fehler zuverlässig abgefangen | Der vollautonome Versuch ohne Mensch an den Toren scheiterte |
+| Gewaltenteilung CIO / CTO / Chairman hat viele Fehler abgefangen | Der vollautonome Versuch ohne Mensch an den Toren scheiterte |
 | Über 150 formale Aufträge und über 100 Bewertungen, jede Freigabe protokolliert | Ein Agent meldete einmal Testergebnisse, die nie gelaufen waren. Seitdem führen erfundene Belege automatisch zu REJECT. |
 | | Geldgewichtet +14,7 %. Gemessen an allen je eingezahlten Beträgen blieben nur +5,0 % netto. Größter Zwischenverlust −21,4 %. |
 

@@ -16,7 +16,7 @@ auf Bybit mit bewusst kleinem **Eigenkapital**.
 | Geldgewichtete Rendite (misst das Konto, Modified Dietz) | +14,7 % | 18.02.–29.07.2026 |
 | Netto-Ergebnis in % aller je eingezahlten Beträge | +5,0 % | 18.02.–29.07.2026 |
 | Größter Zwischenverlust (zeitgewichtet) | −21,4 % | 20.02.–29.07.2026 |
-| Lernphase: Profit-Faktor der ersten rund 170 Trades | 1,00 (exakt break-even) | Feb–Mär 2026 |
+| Lernphase: Profit-Faktor der ersten rund 170 Trades | 1,00 (praktisch ausgeglichen) | Feb–Mär 2026 |
 
 **Empfindlichkeit:** Am 30.03. wurde das intern gebuchte Kapital erstmals an das Börsen-Wallet angeglichen. Bucht man
 drei kleine Einzahlungen erst dort, ergeben sich +34,4 % statt +35,0 % und ein größter Zwischenverlust von −18,4 % statt

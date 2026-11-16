@@ -27,11 +27,11 @@ is not published ([why](../../SAFETY.md)).
 ## Balance
 | Successes | Failures |
 |-----------|----------|
-| A live track record with real money instead of backtest poetry | Learning phase exactly break-even (profit factor 1.00) |
+| A live track record with real money instead of backtest poetry | Learning phase practically break-even (profit factor 1.00) |
 | +35.0% time-weighted over the live phase vs. Bitcoin −4.8%, interim result recalculated independently | The profit hung on a few small coins and one single coin. Without them: April–May +3.7%, June–July −8.5% |
 | A forensic check over 62 days found none of 228 positions ever opened without a stop loss | Before that, several incidents with unprotected positions |
 | Nine tempting ideas cleanly refuted before they cost money | One idea looked like +47% in a naive backtest and was −32.7% in reality |
-| The separation of powers CIO / CTO / chairman reliably caught mistakes | The fully autonomous attempt without a human at the gates failed |
+| The separation of powers CIO / CTO / chairman caught many mistakes | The fully autonomous attempt without a human at the gates failed |
 | Over 150 formal assignments and over 100 reviews, every approval logged | An agent once reported test results that never ran. Since then, invented evidence leads to REJECT automatically. |
 | | Money-weighted +14.7%. Measured against all money ever paid in, only +5.0% net remained. Largest drawdown −21.4%. |
 

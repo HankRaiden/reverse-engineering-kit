@@ -16,7 +16,7 @@ small **own capital**.
 | Money-weighted return (measures the account, modified Dietz) | +14.7% | 18 Feb – 29 Jul 2026 |
 | Net result in % of all money ever paid in | +5.0% | 18 Feb – 29 Jul 2026 |
 | Largest drawdown (time-weighted) | −21.4% | 20 Feb – 29 Jul 2026 |
-| Learning phase: profit factor of the first ~170 trades | 1.00 (exactly break-even) | Feb–Mar 2026 |
+| Learning phase: profit factor of the first ~170 trades | 1.00 (practically break-even) | Feb–Mar 2026 |
 
 **Sensitivity:** on 30 March the internally booked capital was aligned with the exchange wallet for the first time. If
 three small deposits are booked there instead, the result is +34.4% instead of +35.0% and a largest drawdown of −18.4%
