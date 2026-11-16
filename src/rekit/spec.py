@@ -32,7 +32,13 @@ class Hypothesis:
     grid: dict[str, list] | None = None
     baseline_rule: str | None = None
     baseline_params: dict[str, Any] = field(default_factory=dict)
+    allow_gaps: bool = False
     base_dir: Path = Path(".")
+
+    @property
+    def rule_files(self) -> list[Path]:
+        refs = [self.rule] + ([self.baseline_rule] if self.baseline_rule else [])
+        return sorted({(self.base_dir / r.partition(":")[0]).resolve() for r in refs})
 
     @property
     def n_variants(self) -> int:
@@ -85,7 +91,8 @@ def load_spec(path: str | Path) -> list[Hypothesis]:
             criteria=Criteria(**_only(Criteria, merged.get("criteria", {}), f"{merged['id']}.criteria")),
             backtest=BacktestConfig(**_only(BacktestConfig, merged.get("backtest", {}), f"{merged['id']}.backtest")),
             grid=merged.get("grid"), baseline_rule=merged.get("baseline_rule"),
-            baseline_params=merged.get("baseline_params", {}), base_dir=path.parent,
+            baseline_params=merged.get("baseline_params", {}),
+            allow_gaps=bool(merged.get("allow_gaps", False)), base_dir=path.parent,
         ))
     if not out:
         raise SpecError("no [[hypothesis]] entries")

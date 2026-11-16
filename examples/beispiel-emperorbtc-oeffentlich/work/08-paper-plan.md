@@ -14,7 +14,7 @@ Only labelled as an exercise, with the least bad candidate H1:
 
 | Criterion | Limit | Action |
 |-----------|-------|--------|
-| Expectancy after 60 trades | below −0.010 R (lower CI bound of H1) | stop |
+| Expectancy after 60 trades | below −0.043 R (lower CI bound of H1) | stop |
 | Max drawdown | −15% | stop, post-mortem |
 | Paper vs. backtest per trade | > 0.1 R | check the execution model |
 

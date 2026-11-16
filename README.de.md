@@ -36,12 +36,12 @@ flowchart LR
 
 ## Warum die Ergebnisse halten
 Die Agenten schreiben keine eigene Statistik. Sie rufen `rekit` auf, einen kleinen, getesteten Kern:
-- **Sperre der Vorabregistrierung:** Hypothesen werden nach deinem GO eingefroren (SHA-256), geänderte Dateien
+- **Sperre der Vorabregistrierung:** Hypothesen und Regel-Code werden nach deinem GO eingefroren (SHA-256), geänderte Dateien
   werden abgelehnt.
 - **Look-Ahead-Prüfung:** verändert die Zukunft und prüft, dass sich vergangene Signale nicht bewegen.
 - **Ehrliche Ausführung:** Einstieg zur nächsten Kerze, Gebühren, Slippage, Lücken über den Stop, Stop zuerst bei
   unklaren Kerzen.
-- **Statistik gegen Glück:** 1.000-fach-Bootstrap, Deflated Sharpe, Holm-Korrektur, Stärke-Analyse, Walk-Forward.
+- **Statistik gegen Glück:** 1.000-fach-Bootstrap über ganze Wochen, Deflated Sharpe, Holm-Korrektur, Stärke-Analyse, Walk-Forward.
 - **Konzentrations-Check:** Was bleibt ohne deine besten drei Trades?
 - **Mechanisches Urteil:** ACCEPT / REJECT / HOLD je Hypothese, nach vorab festgelegten Kriterien.
 

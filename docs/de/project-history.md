@@ -13,13 +13,13 @@ angegeben. Der Bot selbst wird nicht veröffentlicht ([warum](../../SAFETY.md)).
 | Feb–Apr | **14 dokumentierte Vorfälle**, darunter eine Position 5 Stunden ohne Stop-Loss, Stops, die eine Fremdbibliothek still verfallen ließ (15 Tage unentdeckt), eine Buchführung mit 12,3 % Abweichung zur Börse | Daraus entstanden die 7 Architektur-Prinzipien und die [14 Anti-Muster](anti-patterns.md) |
 | 16. Mär | Vorab definiertes Kriterium erreicht: 30 von 30 Trades mit stabilem Stop-Loss | Erstes formales Tor bestanden |
 | Mär–Apr | 32 datengetriebene Änderungen, einzeln begründet und getestet | Die meisten, die überlebten, *nahmen etwas weg* (Zeitfenster, Meme-Coins) |
-| April | Stärkster Monat: zeitgewichtet rund **+39 %** | Fast ganz aus wenigen kleinen Coins mit Kurssprüngen. Das wurde früh als Risiko benannt. |
+| April | Stärkster Monat: zeitgewichtet **+33,9 %** | Fast ganz aus wenigen kleinen Coins mit Kurssprüngen. Das wurde früh als Risiko benannt. |
 | Mai | Kapital wird erhöht. Danach läuft die Strategie etwa auf **null**. | Geldgewichtete und zeitgewichtete Rendite laufen ab hier weit auseinander |
 | Mai–Jul | Parallel ein **vollautonomer Versuch** auf einem zweiten Eigenkapital-Konto: Die Agenten durften Strategien ohne Chairman-Freigabe live schalten. | Ab 5. Juni praktisch stillgelegt, null neue belastbare Kanten, laufende Kosten über dem Ertrag. Eingestellt. Der Mensch an den Toren war nicht Bürokratie, sondern der Teil, der funktionierte. |
 | 16. Jun | Unabhängige Nachrechnung: **+34,6 %** zeitgewichtet seit 1. April gegenüber Bitcoin **−3,3 %** | Echte Eigenleistung im Messfenster, aber kurz und konzentriert |
 | Jun–Jul | „Quantensprung-Untersuchung“: Fünf Analysen widerlegten sieben scheinbare Verbesserungen | Es gab keinen weiteren Hebel im Regelwerk |
 | 8. Jul | Chairman reduziert das Kapital bewusst (Risiko runter) | Entscheidung des Menschen, nicht der Agenten |
-| 29. Jul | Chairman pausiert den Bot, ohne offene Position | Ende der Live-Phase mit Eigenkapital |
+| 29. Jul | Chairman pausiert den Bot, ohne offene Position | Ende der Live-Phase mit Eigenkapital. Bilanz: zeitgewichtet **+35,0 %** (Bitcoin −4,8 %), geldgewichtet +14,7 %, Abstand zum Hoch −14,7 % |
 | 28. Aug | Server abgeschaltet, vollständiges Archiv gesichert | |
 | 23. Sep | Simulation „Was hätte der Bot ohne Pause verdient?“ für 56 Tage: Median **+2,4 %**, Bitcoin **+34,1 %** | Die Pause hat wenig gekostet. Gegen einfaches Halten von Bitcoin hätte der Bot klar verloren. |
 | Nov | Dieses Kit: die Methode wird geteilt, der Bot nicht | |
@@ -28,12 +28,12 @@ angegeben. Der Bot selbst wird nicht veröffentlicht ([warum](../../SAFETY.md)).
 | Erfolge | Misserfolge |
 |---------|-------------|
 | Live-Track-Record mit echtem Geld statt Backtest-Poesie | Lernphase exakt break-even (Profit-Faktor 1,00) |
-| +34,6 % zeitgewichtet (1. Apr–16. Jun) bei Bitcoin −3,3 %, dreifach unabhängig nachgerechnet | Der Gewinn hing an wenigen kleinen Coins. Ohne sie: April–Mai +3,7 %, Juni–Juli −8,5 % |
+| +35,0 % zeitgewichtet über die Live-Phase bei Bitcoin −4,8 %, Zwischenstand unabhängig nachgerechnet | Der Gewinn hing an wenigen kleinen Coins und einem Einzelwert. Ohne sie: April–Mai +3,7 %, Juni–Juli −8,5 % |
 | In einer forensischen Prüfung über 62 Tage war keine von 228 Positionen je ohne Stop-Loss eröffnet worden | Davor gab es mehrere Vorfälle mit ungeschützten Positionen |
 | Neun verlockende Ideen sauber widerlegt, bevor sie Geld kosteten | Eine Idee sah im naiven Backtest nach +47 % aus und war real −32,7 % |
 | Gewaltenteilung CIO / CTO / Chairman hat Fehler zuverlässig abgefangen | Der vollautonome Versuch ohne Mensch an den Toren scheiterte |
 | Über 150 formale Aufträge und über 100 Bewertungen, jede Freigabe protokolliert | Ein Agent meldete einmal Testergebnisse, die nie gelaufen waren. Seitdem führen erfundene Belege automatisch zu REJECT. |
-| | Geldgewichtet lag die Konto-Rendite bis 3. Juli nur bei +7,8 % |
+| | Geldgewichtet +14,7 %. Gemessen an allen je eingezahlten Beträgen blieben nur +5,0 % netto. Größter Zwischenverlust −21,4 %. |
 
 | Chancen | Risiken |
 |---------|---------|

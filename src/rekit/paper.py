@@ -38,8 +38,10 @@ class PaperTrader:
                                "entry": self.pos.entry, "stop": self.pos.stop, "target": self.pos.target})
         if self.pos is not None:
             bar = df_closed.iloc[i]
-            # position index relative to this frame: keep the bar count consistent with the backtest
-            hit = _step_position(self.pos, i, bar.open, bar.high, bar.low, bar.close, False, self.cfg)
+            # bars held are counted by timestamp, so a sliding window of fixed length still reaches max_bars
+            held = int((df_closed.index >= self.pos.entry_ts).sum())
+            hit = _step_position(self.pos, self.pos.entry_i + held - 1, bar.open, bar.high, bar.low, bar.close,
+                                 False, self.cfg)
             if hit:
                 t = _close(self.pos, hit[0], df_closed.index[i], hit[1], self.symbol, self.cfg)
                 events.append({"event": "close", **t})

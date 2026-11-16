@@ -10,21 +10,25 @@ auf Bybit mit bewusst kleinem **Eigenkapital**.
 ## Was gemessen wurde
 | Befund | Zahl | Fenster |
 |--------|------|---------|
+| Zeitgewichtete Rendite (misst die Strategie) | +35,0 % | 20.02.–29.07.2026 |
+| … davon ab dem Regelwerk-Stand vom 1. April | +31,1 % | 01.04.–29.07.2026 |
+| Bitcoin im selben Fenster | −4,8 % bzw. −6,2 % | dieselben Fenster |
+| Geldgewichtete Rendite (misst das Konto, Modified Dietz) | +14,7 % | 18.02.–29.07.2026 |
+| Netto-Ergebnis in % aller je eingezahlten Beträge | +5,0 % | 18.02.–29.07.2026 |
+| Größter Zwischenverlust (zeitgewichtet) | −21,4 % | 20.02.–29.07.2026 |
 | Lernphase: Profit-Faktor der ersten rund 170 Trades | 1,00 (exakt break-even) | Feb–Mär 2026 |
-| Zeitgewichtete Rendite nach dem letzten großen Regel-Update | +34,6 % | 01.04.–16.06.2026 |
-| Bitcoin im selben Fenster | −3,3 % | 01.04.–16.06.2026 |
-| Geldgewichtete Konto-Rendite (Bybit-Dashboard) | +7,8 % | 18.02.–03.07.2026 |
-| Größter Zwischenverlust (zeitgewichtet) | −12,4 % | bis 16.06.2026 |
 
 **Warum zwei so verschiedene Renditen?** Der Gewinn entstand überwiegend im April auf kleiner Kapitalbasis. Danach
 kam mehr Kapital hinzu, und die Strategie lief etwa auf null. Zeitgewichtet misst die Strategie, geldgewichtet
 misst das Konto. Beides ist wahr. Wer nur eine Zahl zeigt, verschweigt die andere.
 
 ## Die wichtigste Lehre: Konzentration
-| Zeitraum | Zeitgewichtet | Ohne kleine Coins mit Kurssprüngen |
-|----------|---------------|-------------------------------------|
-| April–Mai | +35,7 % | +3,7 % |
-| Juni–Juli | −3,0 % | −8,5 % |
+| Zeitraum | Gesamt | Ohne kleine Coins mit Kurssprüngen |
+|----------|--------|-------------------------------------|
+| April–Mai | +35,7 % | +3,7 % (kleine Coins brachten 95 % des Gewinns) |
+| Juni–Juli | −3,0 % | −0,8 %; zusätzlich ohne TON, einen einzelnen großen Gewinner, −8,5 % |
+
+Methode: Ergebnis im Fenster bezogen auf das Kapital zu Fensterbeginn, eine Näherung ohne Pfadeffekte.
 
 Der Ertrag kam fast nur aus wenigen Episoden kleiner Coins mit starken Kurssprüngen. Bei großen, liquiden Coins lief
 dieselbe Logik flach bis negativ. Deshalb gibt es `concentration()` in jedem Bericht dieses Kits.

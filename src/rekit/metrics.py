@@ -15,6 +15,19 @@ def max_drawdown_pct(equity: pd.Series) -> float:
     return float(((eq / eq.cummax()) - 1).min() * 100)
 
 
+def max_concurrent(trades: pd.DataFrame) -> int:
+    """Largest number of positions open at the same time (across symbols)."""
+    if not len(trades) or "entry_ts" not in trades:
+        return 0
+    events = sorted([(t, 1) for t in trades["entry_ts"]] + [(t, -1) for t in trades["exit_ts"]],
+                    key=lambda e: (e[0], e[1]))
+    cur = peak = 0
+    for _, d in events:
+        cur += d
+        peak = max(peak, cur)
+    return peak
+
+
 def sharpe_annual(equity: pd.Series, periods_per_year: int = 365) -> float:
     """Annualised Sharpe of daily account returns (crypto trades every day)."""
     if len(equity) < 3 or not isinstance(equity.index, pd.DatetimeIndex):
@@ -29,6 +42,7 @@ def summarize(result: BacktestResult) -> dict:
     wins, losses = r[r > 0].sum(), -r[r < 0].sum()
     n = len(r)
     return {
+        "max_concurrent_positions": max_concurrent(result.trades),
         "n_trades": n,
         "hit_rate": float((r > 0).mean()) if n else float("nan"),
         "profit_factor": float(wins / losses) if losses > 0 else float("nan"),

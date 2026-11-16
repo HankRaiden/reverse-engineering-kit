@@ -10,14 +10,31 @@ import pandas as pd
 _N = NormalDist()
 
 
+def bootstrap_draws(values: np.ndarray, stat: Callable[[np.ndarray], float] = np.mean, n: int = 1000,
+                    seed: int = 0, blocks: np.ndarray | None = None) -> np.ndarray:
+    """Bootstrap distribution of `stat`.
+
+    Without `blocks` single trades are resampled. With `blocks` (e.g. the calendar week of each trade) whole blocks
+    are resampled, which keeps trades that happened together together. Use blocks whenever trades are correlated —
+    in crypto, trades on different coins in the same week usually are.
+    """
+    v = np.asarray(values, dtype=float)
+    rng = np.random.default_rng(seed)
+    if blocks is None:
+        return np.array([stat(v[rng.integers(0, len(v), len(v))]) for _ in range(n)])
+    b = np.asarray(blocks)
+    groups = [v[b == k] for k in np.unique(b)]
+    return np.array([stat(np.concatenate([groups[i] for i in rng.integers(0, len(groups), len(groups))]))
+                     for _ in range(n)])
+
+
 def bootstrap_ci(values: np.ndarray, stat: Callable[[np.ndarray], float] = np.mean, n: int = 1000,
-                 alpha: float = 0.05, seed: int = 0) -> tuple[float, float, float]:
-    """Percentile bootstrap: (low, point, high). Resamples trades with replacement."""
+                 alpha: float = 0.05, seed: int = 0, blocks: np.ndarray | None = None) -> tuple[float, float, float]:
+    """Percentile bootstrap: (low, point, high)."""
     v = np.asarray(values, dtype=float)
     if len(v) == 0:
         return (float("nan"),) * 3
-    rng = np.random.default_rng(seed)
-    draws = np.array([stat(v[rng.integers(0, len(v), len(v))]) for _ in range(n)])
+    draws = bootstrap_draws(v, stat, n, seed, blocks)
     lo, hi = np.quantile(draws, [alpha / 2, 1 - alpha / 2])
     return float(lo), float(stat(v)), float(hi)
 

@@ -23,10 +23,15 @@ Alle acht Stufen, einmal durchgespielt, damit du siehst, was jede liefert. Die D
 ## Das Ergebnis, ehrlich
 | Hypothese | Urteil | Kernzahl |
 |-----------|--------|----------|
-| H1 Ausbruch mit Volumen > 0 R | **REJECT** | +0,059 R je Trade, 95-%-KI [−0,010; +0,121], trotz +163 % Gesamtrendite |
-| H2 Volumen verbessert Ausbrüche | **REJECT** | Differenz +0,008 R, KI [−0,088; +0,097] |
-| H3 Swing-Failure > 0 R | **REJECT** | −0,068 R, KI [−0,129; −0,006]: negativ |
-| H4 200-EMA-Filter verbessert H1 | **REJECT** | Differenz +0,031 R, KI [−0,070; +0,126] |
+| H1 Ausbruch mit Volumen > 0 R | **REJECT** | +0,059 R je Trade, 95-%-KI [−0,043; +0,156], trotz +163 % Gesamtrendite* |
+| H2 Volumen verbessert Ausbrüche | **REJECT** | Differenz +0,008 R, KI [−0,131; +0,139] |
+| H3 Swing-Failure > 0 R | **REJECT** | −0,068 R, KI [−0,140; +0,001]: kein Hinweis auf eine positive Kante |
+| H4 200-EMA-Filter verbessert H1 | **REJECT** | Differenz +0,031 R, KI [−0,122; +0,182] |
+
+\* Zum Schließzeitpunkt verbucht, über fünf Coins mit bis zu fünf gleichzeitig offenen Positionen (bis zu 5 % des
+Kontos im Risiko), größter Zwischenverlust −60,8 %. Die Konfidenzintervalle ziehen ganze Wochen neu: Trades auf fünf
+Coins in derselben Woche bewegen sich gemeinsam. Dadurch wird das H1-Intervall rund 50 % breiter, als wenn man jeden
+Trade als unabhängig zählt ([−0,010; +0,121]).
 
 **Was das bedeutet:** Unsere kodierten Versionen dieser Prinzipien zeigten auf fünf großen Coins keine belastbare
 Kante. Das heißt **nicht**, dass der Trader falsch liegt. Gerade der diskretionäre Kontext, den er lehrt, fehlt in

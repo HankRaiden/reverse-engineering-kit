@@ -20,7 +20,11 @@
       "period": "2022-01-01 .. 2026-11-01",
       "out_of_sample": false,
       "metric": "expectancy_r",
+      "allow_gaps": false,
+      "risk_pct": 1.0,
+      "baseline_window": null,
       "summary": {
+        "max_concurrent_positions": 5,
         "n_trades": 2011,
         "hit_rate": 0.3684733963202387,
         "profit_factor": 1.0886292468236978,
@@ -31,16 +35,17 @@
       },
       "verdict": {
         "verdict": "REJECT",
-        "reason": "expectancy +0.059 R, 95% CI [-0.010, +0.121], deflated-Sharpe probability 0.78 over 4 tried variants",
+        "reason": "expectancy +0.059 R, 95% CI [-0.043, +0.156] (not shown), deflated-Sharpe probability 0.54 over 4 tried variants",
         "ci": [
-          -0.01037349242846586,
+          -0.042633137997024444,
           0.05859875084912848,
-          0.12086915618573475
+          0.15563714695454292
         ],
-        "dsr_prob": 0.779143826088917,
-        "p_value": 0.034906867789793905,
+        "dsr_prob": 0.5446365716948385,
+        "p_value": 0.128,
         "n": 2011,
-        "p_holm": 0.13962747115917562
+        "resampled": "by week",
+        "p_holm": 0.512
       },
       "concentration": {
         "top_share_pct": 5.075724187474597,
@@ -69,7 +74,11 @@
       "period": "2022-01-01 .. 2026-11-01",
       "out_of_sample": false,
       "metric": "expectancy_diff_r",
+      "allow_gaps": false,
+      "risk_pct": 1.0,
+      "baseline_window": "full period",
       "summary": {
+        "max_concurrent_positions": 5,
         "n_trades": 2011,
         "hit_rate": 0.3684733963202387,
         "profit_factor": 1.0886292468236978,
@@ -80,16 +89,17 @@
       },
       "verdict": {
         "verdict": "REJECT",
-        "reason": "difference +0.008 R, 95% CI [-0.088, +0.097] does not clear +0.00",
+        "reason": "difference +0.008 R, 95% CI [-0.131, +0.139] does not clear +0.00",
         "ci": [
-          -0.0879344767588104,
+          -0.1307450200399427,
           0.007506615648638748,
-          0.09697674136919046
+          0.13865749340184996
         ],
         "dsr_prob": NaN,
-        "p_value": 0.4319589967824152,
+        "p_value": 0.467,
         "n": 2011,
-        "p_holm": 0.8639179935648305
+        "resampled": "by week",
+        "p_holm": 1.0
       },
       "concentration": {
         "top_share_pct": 5.075724187474597,
@@ -118,7 +128,11 @@
       "period": "2022-01-01 .. 2026-11-01",
       "out_of_sample": false,
       "metric": "expectancy_r",
+      "allow_gaps": false,
+      "risk_pct": 1.0,
+      "baseline_window": null,
       "summary": {
+        "max_concurrent_positions": 5,
         "n_trades": 1924,
         "hit_rate": 0.32588357588357586,
         "profit_factor": 0.9038731821973512,
@@ -129,16 +143,17 @@
       },
       "verdict": {
         "verdict": "REJECT",
-        "reason": "expectancy -0.068 R, 95% CI [-0.129, -0.006], deflated-Sharpe probability 0.00 over 4 tried variants",
+        "reason": "expectancy -0.068 R, 95% CI [-0.140, +0.001] (not shown), deflated-Sharpe probability 0.00 over 4 tried variants",
         "ci": [
-          -0.1294116109833654,
+          -0.1400134428842958,
           -0.06780713212750378,
-          -0.005865797229189178
+          0.0013305758078459766
         ],
-        "dsr_prob": 0.000944097402836741,
-        "p_value": 0.9826391748951111,
+        "dsr_prob": 0.002109533324339774,
+        "p_value": 0.971,
         "n": 1924,
-        "p_holm": 0.9826391748951111
+        "resampled": "by week",
+        "p_holm": 1.0
       },
       "concentration": {
         "top_share_pct": -4.582442652551922,
@@ -167,7 +182,11 @@
       "period": "2022-01-01 .. 2026-11-01",
       "out_of_sample": false,
       "metric": "expectancy_diff_r",
+      "allow_gaps": false,
+      "risk_pct": 1.0,
+      "baseline_window": "full period",
       "summary": {
+        "max_concurrent_positions": 5,
         "n_trades": 1651,
         "hit_rate": 0.37855844942459116,
         "profit_factor": 1.1375469429137561,
@@ -178,16 +197,17 @@
       },
       "verdict": {
         "verdict": "REJECT",
-        "reason": "difference +0.031 R, 95% CI [-0.070, +0.126] does not clear +0.00",
+        "reason": "difference +0.031 R, 95% CI [-0.122, +0.182] does not clear +0.00",
         "ci": [
-          -0.07021771488953546,
+          -0.12203681384771359,
           0.030793788650464782,
-          0.1255005017644642
+          0.1824270460001064
         ],
         "dsr_prob": NaN,
-        "p_value": 0.2617585406914783,
+        "p_value": 0.343,
         "n": 1651,
-        "p_holm": 0.7852756220744349
+        "resampled": "by week",
+        "p_holm": 1.0
       },
       "concentration": {
         "top_share_pct": 4.052752620015319,

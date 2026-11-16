@@ -9,6 +9,7 @@ from datetime import UTC, datetime
 from itertools import product
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 from . import __version__
@@ -33,8 +34,8 @@ def _safe(symbol: str) -> str:
 
 def _data(h: Hypothesis, symbol: str, csv_dir: Path | None, cache_dir: Path) -> pd.DataFrame:
     if csv_dir is not None:
-        return load_csv(Path(csv_dir) / f"{_safe(symbol)}_{h.timeframe}.csv", allow_gaps=True)
-    return fetch_public_ohlcv(h.exchange, symbol, h.timeframe, h.start, h.end, cache_dir)
+        return load_csv(Path(csv_dir) / f"{_safe(symbol)}_{h.timeframe}.csv", allow_gaps=h.allow_gaps)
+    return fetch_public_ohlcv(h.exchange, symbol, h.timeframe, h.start, h.end, cache_dir, allow_gaps=h.allow_gaps)
 
 
 def _bound(fn, params):
@@ -49,17 +50,32 @@ def _check_rules(h: Hypothesis, df: pd.DataFrame) -> None:
         assert_no_lookahead(_bound(h.baseline_fn, h.baseline_params), df)
 
 
-def _trades(h: Hypothesis, fn, params, frames: dict[str, pd.DataFrame], use_grid: bool) -> pd.DataFrame:
-    """All trades of one rule over all symbols. With a grid, only walk-forward out-of-sample trades count."""
-    parts = []
+def _trades(h: Hypothesis, fn, params, frames: dict[str, pd.DataFrame], use_grid: bool,
+            windows: dict[str, list] | None = None) -> tuple[pd.DataFrame, dict[str, list]]:
+    """All trades of one rule over all symbols.
+
+    With a grid, only walk-forward out-of-sample trades count (their windows are returned).
+    With `windows`, trades are restricted to those windows (a baseline judged on the same periods).
+    """
+    parts, out_windows = [], {}
     for sym, df in frames.items():
         if use_grid:
             factory = lambda **g: _bound(fn, {**params, **g})  # noqa: E731
-            tr = walk_forward(df, factory, h.grid, h.backtest)["oos_trades"]
+            wf = walk_forward(df, factory, h.grid, h.backtest)
+            tr, out_windows[sym] = wf["oos_trades"], wf["oos_windows"]
         else:
             tr = run_backtest(df, _bound(fn, params)(df), h.backtest, symbol=sym).trades
+        if windows is not None and sym in windows:
+            keep = np.zeros(len(tr), dtype=bool)
+            for a, b in windows[sym]:
+                keep |= ((tr.entry_ts >= a) & (tr.entry_ts <= b)).to_numpy()
+            tr = tr[keep]
         parts.append(tr.assign(symbol=sym))
-    return pd.concat(parts, ignore_index=True) if parts else pd.DataFrame()
+    return (pd.concat(parts, ignore_index=True) if parts else pd.DataFrame()), out_windows
+
+
+def _weeks(trades: pd.DataFrame) -> np.ndarray:
+    return pd.to_datetime(trades["entry_ts"], utc=True).dt.strftime("%G-%V").to_numpy()
 
 
 def cmd_backtest(args) -> int:
@@ -71,15 +87,23 @@ def cmd_backtest(args) -> int:
     out = []
     for h in hyps:
         frames = {s: _data(h, s, args.csv_dir, cache) for s in h.symbols}
-        _check_rules(h, next(iter(frames.values())))
-        trades = _trades(h, h.rule_fn, h.params, frames, use_grid=bool(h.grid))
-        base = _trades(h, h.baseline_fn, h.baseline_params, frames, use_grid=False) if h.baseline_fn else None
+        for df in frames.values():
+            _check_rules(h, df)
+        trades, windows = _trades(h, h.rule_fn, h.params, frames, use_grid=bool(h.grid))
+        base = None
+        if h.baseline_fn:
+            base, _ = _trades(h, h.baseline_fn, h.baseline_params, frames, use_grid=False,
+                              windows=windows if h.grid else None)
         res = result_from_trades(trades, h.backtest)
         v = verdict(trades["r_multiple"].to_numpy(), h.criteria, n_trials,
-                    baseline_r=None if base is None else base["r_multiple"].to_numpy())
+                    baseline_r=None if base is None else base["r_multiple"].to_numpy(),
+                    blocks=_weeks(trades) if len(trades) else None,
+                    baseline_blocks=_weeks(base) if base is not None and len(base) else None)
         out.append({"id": h.id, "statement": h.statement, "symbols": h.symbols, "timeframe": h.timeframe,
                     "period": f"{h.start} .. {h.end}", "out_of_sample": bool(h.grid),
-                    "metric": h.criteria.metric,
+                    "metric": h.criteria.metric, "allow_gaps": h.allow_gaps, "risk_pct": h.backtest.risk_pct,
+                    "baseline_window": ("out-of-sample windows only" if h.grid else "full period")
+                    if h.baseline_fn else None,
                     "summary": summarize(res), "verdict": v,
                     "concentration": concentration(trades, 3) if len(trades) else {},
                     "concentration_by_symbol": concentration(trades, 1, by="symbol") if len(trades) else {}})
@@ -91,7 +115,7 @@ def cmd_backtest(args) -> int:
     for i, a in zip(testable, adj, strict=True):
         v = out[i]["verdict"]
         v["p_holm"] = a
-        if v["verdict"] == "ACCEPT" and a > out[i].get("alpha", 0.05):
+        if v["verdict"] == "ACCEPT" and a > hyps[i].criteria.alpha:
             v["verdict"] = "REJECT"
             v["reason"] += f"; not significant after Holm correction across {len(testable)} hypotheses (p={a:.3f})"
     results = {"meta": {"spec": spec.name, "n_trials": n_trials, "rekit": __version__,
@@ -106,9 +130,9 @@ def cmd_backtest(args) -> int:
 def cmd_check(args) -> int:
     spec = Path(args.spec)
     for h in load_spec(spec):
-        df = _data(h, h.symbols[0], args.csv_dir, spec.parent / ".cache")
-        _check_rules(h, df)
-        print(f"{h.id}: no look-ahead detected")
+        for sym in h.symbols:
+            _check_rules(h, _data(h, sym, args.csv_dir, spec.parent / ".cache"))
+        print(f"{h.id}: no look-ahead detected ({len(h.symbols)} symbol(s))")
     return 0
 
 
@@ -140,7 +164,7 @@ def cmd_paper(args) -> int:
         end = pd.Timestamp.now(tz="UTC")
         start = end - pd.Timedelta(h.timeframe.replace("m", "min")) * args.bars
         df = fetch_public_ohlcv(h.exchange, symbol, h.timeframe, start.isoformat(), end.isoformat(),
-                                spec.parent / ".cache", use_cache=False)
+                                spec.parent / ".cache", use_cache=False, allow_gaps=h.allow_gaps)
         for e in trader.on_bar(df):
             print(e)
         if args.once:

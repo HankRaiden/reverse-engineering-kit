@@ -22,10 +22,14 @@ All eight stages, done once, so you can see what each produces. Files live in [`
 ## The result, honestly
 | Hypothesis | Verdict | Key number |
 |-----------|---------|------------|
-| H1 Breakout with volume > 0 R | **REJECT** | +0.059 R per trade, 95% CI [−0.010, +0.121] — despite +163% total return |
-| H2 Volume improves breakouts | **REJECT** | difference +0.008 R, CI [−0.088, +0.097] |
-| H3 Swing failure > 0 R | **REJECT** | −0.068 R, CI [−0.129, −0.006]: negative |
-| H4 200-EMA filter improves H1 | **REJECT** | difference +0.031 R, CI [−0.070, +0.126] |
+| H1 Breakout with volume > 0 R | **REJECT** | +0.059 R per trade, 95% CI [−0.043, +0.156] — despite +163% total return* |
+| H2 Volume improves breakouts | **REJECT** | difference +0.008 R, CI [−0.131, +0.139] |
+| H3 Swing failure > 0 R | **REJECT** | −0.068 R, CI [−0.140, +0.001]: no sign of a positive edge |
+| H4 200-EMA filter improves H1 | **REJECT** | difference +0.031 R, CI [−0.122, +0.182] |
+
+\* Exit-marked across five coins with up to five positions open at once (up to 5% of the account at risk), largest
+drawdown −60.8%. Confidence intervals resample whole weeks: trades on five coins in the same week move together, which
+widens the H1 interval by about 50% compared with treating every trade as independent ([−0.010, +0.121]).
 
 **What this means:** our coded versions of these principles did not show a robust edge on five large coins. It does
 **not** mean the trader is wrong: the discretionary context he teaches is exactly what the rules leave out

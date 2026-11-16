@@ -36,10 +36,10 @@ flowchart LR
 
 ## Why the results hold up
 The agents do not write their own statistics. They call `rekit`, a small, tested core:
-- **Pre-registration lock:** hypotheses are frozen (SHA-256) after your GO; changed files are refused.
+- **Pre-registration lock:** hypotheses and the rule code are frozen (SHA-256) after your GO; changed files are refused.
 - **Look-ahead detector:** changes the future and checks that past signals do not move.
 - **Honest execution:** next-candle fills, fees, slippage, gaps through the stop, stop-first in ambiguous candles.
-- **Statistics against luck:** 1,000× bootstrap, deflated Sharpe, Holm correction, power analysis, walk-forward.
+- **Statistics against luck:** 1,000× bootstrap by whole weeks, deflated Sharpe, Holm correction, power analysis, walk-forward.
 - **Concentration check:** what is left without your best three trades?
 - **Mechanical verdict:** ACCEPT / REJECT / HOLD per hypothesis, by criteria fixed in advance.
 

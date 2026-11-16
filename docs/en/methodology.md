@@ -5,8 +5,8 @@ ways of fooling yourself.
 
 ## 1. Pre-registration instead of bending afterwards
 Before any number is computed, it is fixed what is tested, how it is measured, when it counts as refuted, and how
-many trades that needs. After the CHAIRMAN-GO, `rekit lock` freezes the file by SHA-256. `rekit backtest` refuses
-any changed file.
+many trades that needs. After the CHAIRMAN-GO, `rekit lock` freezes the hypotheses file **and the rule code it uses**
+by SHA-256. `rekit backtest` refuses any changed file, and a lock is never silently replaced.
 **Why:** whoever adjusts the rules after seeing the result ends up measuring how well they can adjust.
 
 ## 2. No peeking into the future (look-ahead)
@@ -16,14 +16,17 @@ any changed file.
   rule looks into the future, and the check fails.
 **Why:** in a real project an idea looked like +47% in a naive backtest. With real execution times it was −32.7%.
 
-## 3. Realistic rather than optimistic execution
+## 3. Realistic rather than optimistic data and execution
+Missing candles, duplicate timestamps or empty values stop the test. Gaps are only allowed if the hypotheses file
+says so explicitly (`allow_gaps = true`), and the report records it.
+
 Fees on both sides, slippage on market fills and stops, gaps through the stop (filled at the open, not at the stop
 price). If stop and target fall in the same candle, the stop counts as hit first.
 
 ## 4. Statistics that expect randomness
 | Tool | Question it answers |
 |------|---------------------|
-| Bootstrap confidence interval (1,000×) | How sure is the expectancy if the trades had fallen differently by chance? |
+| Bootstrap confidence interval (1,000×, whole weeks) | How sure is the expectancy if the weeks had fallen differently by chance? Whole weeks, because trades on several coins in the same week move together. |
 | Deflated Sharpe (Bailey & López de Prado) | How likely is the result real, given I tried N variants? |
 | Holm correction | Do several hypotheses hold at once, or did one just "win" by chance? |
 | Power analysis (`min_trades`) | How many trades do I need to see an effect of this size at all? |
@@ -31,8 +34,11 @@ price). If stop and target fall in the same candle, the stop counts as hit first
 
 The verdict is mechanical:
 - **HOLD:** fewer trades than registered. Neither yes nor no.
-- **ACCEPT:** the lower bound of the 95% interval clears the threshold, the deflated-Sharpe probability is at
-  least 0.95, and the hypothesis stays significant after Holm correction.
+- **ACCEPT (expectancy):** the lower bound of the 95% interval clears the threshold, the deflated-Sharpe
+  probability of the weekly results is at least 0.95, and the hypothesis stays significant after Holm correction.
+- **ACCEPT (difference to a baseline rule):** the lower bound of the 95% interval of the difference clears the
+  threshold, and the hypothesis stays significant after Holm. With a parameter grid, the baseline is measured in the
+  same out-of-sample windows.
 - **REJECT:** everything else.
 
 ## 5. Concentration: the most uncomfortable question

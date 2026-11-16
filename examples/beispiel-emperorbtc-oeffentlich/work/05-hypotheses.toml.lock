@@ -1,5 +1,7 @@
 {
-  "file": "05-hypotheses.toml",
-  "sha256": "3bae23f875abb988ff2bcc5f7cebd1ae7ac34e4bcf9ec1479eb503e6e6c412f3",
-  "locked_at": "2026-11-16T21:59:30+00:00"
+  "files": {
+    "05-hypotheses.toml": "3bae23f875abb988ff2bcc5f7cebd1ae7ac34e4bcf9ec1479eb503e6e6c412f3",
+    "rules.py": "003c325278f3a4aa9126f8077933d1dbe37f8f58f732e29b20c566794532db96"
+  },
+  "locked_at": "2026-11-16T22:12:36+00:00"
 }

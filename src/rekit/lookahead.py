@@ -26,10 +26,29 @@ def _perturb_after(df: pd.DataFrame, t: int, rng: np.random.Generator) -> pd.Dat
     return out
 
 
-def assert_no_lookahead(rule: Rule, df: pd.DataFrame, checkpoints: int = 25, seed: int = 0) -> None:
-    """Raise LookAheadError if the signal up to bar t depends on any bar after t."""
-    rng = np.random.default_rng(seed)
+def _same(a, b) -> bool:
+    return bool(a == b or (pd.isna(a) and pd.isna(b)))
+
+
+def assert_no_lookahead(rule: Rule, df: pd.DataFrame, checkpoints: int = 25, seed: int = 0,
+                        truncation_points: int = 300) -> None:
+    """Raise LookAheadError if the signal up to bar t depends on any bar after t.
+
+    Two independent checks:
+    1. Truncation (exact, deterministic): for evenly spaced bars t, the rule computed on data that ENDS at t must
+       give the same value at t as the rule computed on the full data.
+    2. Perturbation: change everything after random bars t; nothing up to t may move.
+    """
     base = rule(df)
+    n = len(df)
+    start = max(1, int(n * 0.05))
+    points = np.unique(np.linspace(start, n - 1, num=min(truncation_points, n - start)).astype(int))
+    for t in points:
+        if not _same(rule(df.iloc[: t + 1]).iloc[-1], base.iloc[t]):
+            raise LookAheadError(
+                f"signal at {df.index[t]} differs when the data ends at that candle — the rule looks into the future"
+            )
+    rng = np.random.default_rng(seed)
     lo, hi = int(len(df) * 0.1), int(len(df) * 0.9)
     for t in sorted(rng.integers(lo, hi, size=checkpoints)):
         changed = rule(_perturb_after(df, int(t), rng))

@@ -14,7 +14,12 @@ LABELS = {
            "m_abs": "expectancy", "m_diff": "difference vs. baseline",
            "top": "Share of net result from top 3 trades (%)",
            "ex": "Net result without top 3 trades (R)", "note":
-           "Verdicts follow criteria registered before the test. HOLD means: not enough trades to decide."},
+           "Verdicts follow criteria registered before the test. HOLD means: not enough trades to decide.",
+           "acct": "Total return and drawdown are exit-marked: every trade risks {risk} % of the account at entry and "
+                   "is booked when it closes, across all symbols. Up to {conc} positions were open at the same time "
+                   "(up to {total} % of the account at risk). This is not a specified portfolio.",
+           "boot": "Confidence intervals resample whole calendar weeks, so trades that happened together are not "
+                   "counted as independent evidence."},
     "de": {"title": "Backtest-Bericht", "hyp": "Hypothese", "verdict": "Urteil", "reason": "Begründung",
            "trades": "Trades", "hit": "Trefferquote", "pf": "Profit-Faktor", "exp": "Erwartungswert (R)",
            "ret": "Gesamtrendite (%)", "dd": "Max. Zwischenverlust (%)", "sharpe": "Sharpe (annualisiert)",
@@ -24,7 +29,12 @@ LABELS = {
            "top": "Anteil der besten 3 Trades am Netto-Ergebnis (%)",
            "ex": "Netto-Ergebnis ohne die besten 3 Trades (R)", "note":
            "Die Urteile folgen Kriterien, die vor dem Test festgelegt wurden. HOLD heißt: zu wenige Trades für eine "
-           "Entscheidung."},
+           "Entscheidung.",
+           "acct": "Gesamtrendite und Zwischenverlust sind zum Schließzeitpunkt verbucht (exit-marked): Jeder Trade "
+                   "riskiert beim Einstieg {risk} % des Kontos, über alle Symbole. Bis zu {conc} Positionen waren "
+                   "gleichzeitig offen (bis zu {total} % des Kontos im Risiko). Das ist kein festgelegtes Portfolio.",
+           "boot": "Die Konfidenzintervalle ziehen ganze Kalenderwochen neu, damit gleichzeitige Trades nicht als "
+                   "unabhängige Belege zählen."},
 }
 
 
@@ -63,6 +73,11 @@ def write_report(results: dict, out_dir: Path, lang: str = "en") -> Path:
         if c:
             lines += [f"- **{L['conc']}:** {L['top']}: {_f(c.get('top_share_pct'), '{:.0f}')} · "
                       f"{L['ex']}: {_f(c.get('net_ex_top_r'), '{:+.1f}')}"]
+        if "max_concurrent_positions" in s and "risk_pct" in h:
+            k = s["max_concurrent_positions"]
+            lines += ["", "> " + L["acct"].format(risk=h["risk_pct"], conc=k, total=round(k * h["risk_pct"], 2))]
+        if v.get("resampled") == "by week":
+            lines += ["", "> " + L["boot"]]
     md = out_dir / "report.md"
     md.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return md

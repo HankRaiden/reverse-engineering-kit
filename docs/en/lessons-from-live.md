@@ -10,21 +10,26 @@ small **own capital**.
 ## What was measured
 | Finding | Number | Window |
 |---------|--------|--------|
+| Time-weighted return (measures the strategy) | +35.0% | 20 Feb – 29 Jul 2026 |
+| … of which from the rule set of 1 April on | +31.1% | 1 Apr – 29 Jul 2026 |
+| Bitcoin in the same window | −4.8% and −6.2% | the same windows |
+| Money-weighted return (measures the account, modified Dietz) | +14.7% | 18 Feb – 29 Jul 2026 |
+| Net result in % of all money ever paid in | +5.0% | 18 Feb – 29 Jul 2026 |
+| Largest drawdown (time-weighted) | −21.4% | 20 Feb – 29 Jul 2026 |
 | Learning phase: profit factor of the first ~170 trades | 1.00 (exactly break-even) | Feb–Mar 2026 |
-| Time-weighted return after the last major rule update | +34.6% | 1 Apr – 16 Jun 2026 |
-| Bitcoin in the same window | −3.3% | 1 Apr – 16 Jun 2026 |
-| Money-weighted account return (Bybit dashboard) | +7.8% | 18 Feb – 3 Jul 2026 |
-| Largest drawdown (time-weighted) | −12.4% | until 16 Jun 2026 |
 
 **Why two such different returns?** The profit was made mostly in April on a small capital base. More capital came
 in afterwards, and the strategy ran at roughly zero. Time-weighted measures the strategy, money-weighted measures the
 account. Both are true. Showing only one hides the other.
 
 ## The most important lesson: concentration
-| Period | Time-weighted | Without small coins with price spikes |
-|--------|---------------|----------------------------------------|
-| April–May | +35.7% | +3.7% |
-| June–July | −3.0% | −8.5% |
+| Period | Total | Without small coins with price spikes |
+|--------|-------|----------------------------------------|
+| April–May | +35.7% | +3.7% (small coins brought 95% of the profit) |
+| June–July | −3.0% | −0.8%; also without TON, a single large winner, −8.5% |
+
+Method: result in the window relative to the capital at the start of the window, an approximation without path
+effects.
 
 The return came almost entirely from a few episodes of small coins with strong price spikes. On large, liquid
 coins the same logic ran flat to negative. That is why every report of this kit includes `concentration()`.
