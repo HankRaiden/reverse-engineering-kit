@@ -66,6 +66,8 @@ Schritt für Schritt: [Schnellstart](docs/de/quickstart.md).
 | `examples/beispiel-emperorbtc-oeffentlich/` | alle 8 Stufen an öffentlichen Prinzipien durchgespielt |
 
 ## Woher das kommt
+Die ganze Geschichte mit allen Zahlen in Prozent: **[emperorai-v2.vercel.app](https://emperorai-v2.vercel.app)**.
+
 Die Methode stammt aus einem echten Projekt. Ein Krypto-Bot wurde aus öffentlichem Trading-Wissen gebaut, von zwei
 KI-Agenten geführt und von einem Menschen mit Vetorecht kontrolliert. Er handelte von Februar bis Juli 2026 mit
 Eigenkapital auf Bybit. Die ganze Geschichte mit Erfolgen und Misserfolgen steht in der [Projektgeschichte](docs/de/project-history.md),

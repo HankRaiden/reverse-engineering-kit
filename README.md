@@ -64,6 +64,8 @@ Step by step: [quickstart](docs/en/quickstart.md).
 | `examples/beispiel-emperorbtc-oeffentlich/` | all 8 stages worked through on public principles |
 
 ## Where this comes from
+The full story, in German, with all numbers in percent: **[emperorai-v2.vercel.app](https://emperorai-v2.vercel.app)**.
+
 The method grew out of a real project: a crypto bot built from public trading knowledge, run by two AI agents and one
 human with a veto, trading its own capital on Bybit from February to July 2026. The full story, with successes and failures, is in [project history](docs/en/project-history.md); what it learned —
 including what did **not** work — is in [lessons from live trading](docs/en/lessons-from-live.md). **The bot itself is not published**
