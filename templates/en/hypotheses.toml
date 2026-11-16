@@ -1,0 +1,30 @@
+# Stage 5 · machine part of the pre-registration. After CHAIRMAN-GO: `rekit lock <this file>`.
+
+[meta]
+source = "Name of the source"
+created = "2026-11-16"
+
+[defaults]
+exchange = "bybit"           # public candles, no account, no key
+timeframe = "4h"
+start = "2022-01-01"
+end = "2026-11-01"
+symbols = ["BTC/USDT:USDT", "ETH/USDT:USDT"]
+
+[[hypothesis]]
+id = "H1"
+statement = "Rule R1 has a positive expectancy per trade"
+rule = "rules.py:my_rule"     # file relative to this TOML, then :function(df, **params)
+params = { lookback = 20 }
+
+[hypothesis.criteria]
+metric = "expectancy_r"
+threshold = 0.0
+min_trades = 150
+
+[hypothesis.backtest]
+risk_pct = 1.0
+fee_bps = 5.5
+slippage_bps = 2.0
+stop_atr = 1.5
+target_r = 2.0

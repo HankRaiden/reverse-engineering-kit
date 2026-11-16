@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Freigabe-Protokoll: eine Zeile je Chairman-Entscheidung (work/approval-log.jsonl)",
+  "type": "object",
+  "required": ["ts", "gate", "decision", "statement", "files"],
+  "properties": {
+    "ts": {"type": "string", "description": "UTC-Zeit, ISO 8601"},
+    "gate": {"enum": ["principles", "preregistration", "paper-start", "other"]},
+    "decision": {"enum": ["GO", "HOLD", "NO-GO"]},
+    "statement": {"type": "string", "description": "Wortlaut des Chairman, unverändert"},
+    "files": {"type": "array", "items": {"type": "string"}},
+    "sha256": {"type": "string", "description": "Prüfsumme der freigegebenen Datei, falls vorhanden"},
+    "note": {"type": "string"}
+  },
+  "additionalProperties": false
+}

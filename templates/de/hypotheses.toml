@@ -1,0 +1,30 @@
+# Stufe 5 · Maschinen-Teil der Vorabregistrierung. Nach CHAIRMAN-GO: `rekit lock <diese Datei>`.
+
+[meta]
+source = "Name der Quelle"
+created = "2026-11-16"
+
+[defaults]
+exchange = "bybit"           # öffentliche Kerzen, kein Konto, kein Schlüssel
+timeframe = "4h"
+start = "2022-01-01"
+end = "2026-11-01"
+symbols = ["BTC/USDT:USDT", "ETH/USDT:USDT"]
+
+[[hypothesis]]
+id = "H1"
+statement = "Regel R1 hat einen positiven Erwartungswert je Trade"
+rule = "rules.py:meine_regel"   # Datei relativ zu dieser TOML, dann :funktion(df, **params)
+params = { lookback = 20 }
+
+[hypothesis.criteria]
+metric = "expectancy_r"
+threshold = 0.0
+min_trades = 150
+
+[hypothesis.backtest]
+risk_pct = 1.0
+fee_bps = 5.5
+slippage_bps = 2.0
+stop_atr = 1.5
+target_r = 2.0

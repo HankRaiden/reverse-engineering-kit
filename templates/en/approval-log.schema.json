@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Approval log: one line per chairman decision (work/approval-log.jsonl)",
+  "type": "object",
+  "required": ["ts", "gate", "decision", "statement", "files"],
+  "properties": {
+    "ts": {"type": "string", "description": "UTC time, ISO 8601"},
+    "gate": {"enum": ["principles", "preregistration", "paper-start", "other"]},
+    "decision": {"enum": ["GO", "HOLD", "NO-GO"]},
+    "statement": {"type": "string", "description": "the chairman's exact words"},
+    "files": {"type": "array", "items": {"type": "string"}},
+    "sha256": {"type": "string", "description": "checksum of the approved file, if any"},
+    "note": {"type": "string"}
+  },
+  "additionalProperties": false
+}
