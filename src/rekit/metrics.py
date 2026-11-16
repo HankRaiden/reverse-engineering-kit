@@ -37,3 +37,14 @@ def summarize(result: BacktestResult) -> dict:
         "max_drawdown_pct": max_drawdown_pct(result.equity),
         "sharpe_annual": sharpe_annual(result.equity),
     }
+
+
+def result_from_trades(trades: pd.DataFrame, cfg=None) -> BacktestResult:
+    """Rebuild a result (equity indexed by exit time) from a trade list, e.g. concatenated out-of-sample trades."""
+    from .backtest import BacktestConfig
+
+    tr = trades.sort_values("exit_ts").reset_index(drop=True)
+    eq = (1 + tr["return_pct"] / 100).cumprod() if len(tr) else pd.Series([1.0])
+    if len(tr):
+        eq.index = pd.DatetimeIndex(tr["exit_ts"])
+    return BacktestResult(trades=tr, equity=eq, config=cfg or BacktestConfig())
