@@ -56,14 +56,14 @@ def _cache_name(exchange: str, symbol: str, timeframe: str, start: str, end: str
 
 
 def fetch_public_ohlcv(exchange: str, symbol: str, timeframe: str, start: str, end: str,
-                       cache_dir: Path) -> pd.DataFrame:
+                       cache_dir: Path, use_cache: bool = True) -> pd.DataFrame:
     """Download candles from a public endpoint (no account, no key) and cache them as CSV.
 
     Only closed candles inside [start, end) are kept.
     """
     cache_dir = Path(cache_dir)
     cache = cache_dir / _cache_name(exchange, symbol, timeframe, start, end)
-    if cache.exists():
+    if use_cache and cache.exists():
         return load_csv(cache)
     import ccxt  # optional dependency: `uv sync --extra data`
 
@@ -86,6 +86,9 @@ def fetch_public_ohlcv(exchange: str, symbol: str, timeframe: str, start: str, e
     now_ms = client.milliseconds()
     step_ms = client.parse_timeframe(timeframe) * 1000
     df = df[df.ts + step_ms <= now_ms]  # drop the still-open candle
+    if not use_cache:
+        out = df.set_index(pd.DatetimeIndex(pd.to_datetime(df.pop("ts"), unit="ms", utc=True), name="ts"))
+        return validate(out, allow_gaps=True)
     cache_dir.mkdir(parents=True, exist_ok=True)
     df.to_csv(cache, index=False)
     return load_csv(cache, allow_gaps=True)
